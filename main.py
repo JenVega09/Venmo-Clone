@@ -15,7 +15,7 @@ user_one = {
 user_two = {
     'full_name':'Orlando Humm',
     'user_name':'o',
-    'password':'O',
+    'password':'o',
     'account_balance': 5000,
     'connected_banks':[
         ('USAA', 500),
@@ -25,16 +25,16 @@ user_two = {
 }
 # Checking user_one credentials
 
-i = True
-while i == True:
+inputting_user_name  = True
+while inputting_user_name == True:
     user_one_credentials = input('Please enter your user name:  ')
     if user_one_credentials == user_one['user_name']:
-        i=False
-        j = True
-        while j == True:
+        inputting_user_name = False
+        inputting_password = True
+        while inputting_password == True:
             user_one_password = input("Please enter your password:  ")
             if user_one_password == user_one['password']:
-                j = False
+                inputting_password = False
                 print(" ")
                 print(f"Log in successful!  Welcome {user_one['full_name']}")
             else:
@@ -56,32 +56,29 @@ print(" ")
 # Beginning transaction
 
 transfer_funds = input(f"Are you sure that you want to transfer money to {user_two['full_name']}? (y/n): ").lower()
-n = True
-while n == True:
+transfer_confirmed = True
+while transfer_confirmed == True:
     
     if transfer_funds == 'n':
         print("Transaction cancelled.  Have a nice day!")
     else:
-        k = False
+        funds_available = False
         transfer_amount = int(input(f"How much money would you like to transfer to {user_two['full_name']}? (Whole dollars only): "))
-        while k == False:
+        while funds_available == False:
             if transfer_amount > user_one['account_balance']:
                 print(f"Insufficient Funds.  Your transfer must be less than or equal to {user_one['account_balance']}.  Please enter a smaller amount to transfer.")
                 transfer_amount = int(input(f"How much money would you like to transfer to {user_two['account_balance']}? (Whole dollars only): "))
             else: 
-                k = True
+                funds_available = True
 
-        print(f"Initiating transfer of {transfer_amount} to {user_two['full_name']}.")
-        print(" ")
+        print(f"Initiating transfer of {transfer_amount} to \"{user_two['full_name']}\".\n")
+        # print(" ")
         user_one['account_balance']-=transfer_amount
         user_two['account_balance']+=transfer_amount
-        print(user_one['account_balance'])
-        print(user_two['account_balance'])
+        
         additional_transaction=input("Would you like to make an additional transfer? (y/n): ").lower()
         if additional_transaction == 'n':
             print(f"You now have {user_one['account_balance']} left in your account.  Have a GREAT day!")
-            n = False
-
-        # print(f"Transaction successful, you now have ${user_one['account_balance']} remaining in your account.")
-        
+            transfer_confirmed = False
+      
 
