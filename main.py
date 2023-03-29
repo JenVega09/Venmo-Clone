@@ -56,25 +56,32 @@ print(" ")
 # Beginning transaction
 
 transfer_funds = input(f"Are you sure that you want to transfer money to {user_two['full_name']}? (y/n): ").lower()
-if transfer_funds == 'n':
-    print("Transaction cancelled.  Have a nice day!")
-else:
-    k = False
-    transfer_amount = int(input(f"How much money would you like to transfer to {user_two['full_name']}? (Whole dollars only): "))
-    while k == False:
-        if transfer_amount > user_one['account_balance']:
-            print(f"Insufficient Funds.  Your transfer must be less than or equal to {user_one['account_balance']}.  Please enter a smaller amount to transfer.")
-            transfer_amount = int(input(f"How much money would you like to transfer to {user_two['account_balance']}? (Whole dollars only): "))
-        else: 
-            k = True
-
-    print(f"Initiating transfer of {transfer_amount} to {user_two['full_name']}.")
-    print(" ")
-    user_one['account_balance']-=transfer_amount
-    user_two['account_balance']+=transfer_amount
-    print(user_one['account_balance'])
-    print(user_two['account_balance'])
+n = True
+while n == True:
     
-    # print(f"Transaction successful, you now have ${user_one['account_balance']} remaining in your account.")
-       
+    if transfer_funds == 'n':
+        print("Transaction cancelled.  Have a nice day!")
+    else:
+        k = False
+        transfer_amount = int(input(f"How much money would you like to transfer to {user_two['full_name']}? (Whole dollars only): "))
+        while k == False:
+            if transfer_amount > user_one['account_balance']:
+                print(f"Insufficient Funds.  Your transfer must be less than or equal to {user_one['account_balance']}.  Please enter a smaller amount to transfer.")
+                transfer_amount = int(input(f"How much money would you like to transfer to {user_two['account_balance']}? (Whole dollars only): "))
+            else: 
+                k = True
+
+        print(f"Initiating transfer of {transfer_amount} to {user_two['full_name']}.")
+        print(" ")
+        user_one['account_balance']-=transfer_amount
+        user_two['account_balance']+=transfer_amount
+        print(user_one['account_balance'])
+        print(user_two['account_balance'])
+        additional_transaction=input("Would you like to make an additional transfer? (y/n): ").lower()
+        if additional_transaction == 'n':
+            print(f"You now have {user_one['account_balance']} left in your account.  Have a GREAT day!")
+            n = False
+
+        # print(f"Transaction successful, you now have ${user_one['account_balance']} remaining in your account.")
+        
 
