@@ -3,7 +3,7 @@
 user_one = {
     'full_name':'Joaquin Humm',
     'user_name':'q',
-    'password':'Q',
+    'password':'q',
     'account_balance': 5000,
     'connected_banks':[
         ('USAA', 500),
@@ -42,7 +42,39 @@ while i == True:
     else:
         print("Incorrect username, please try again.")
 
-# Formatting beginning of Venmo transactions
+# Displaying Account Information
+
 print(" ")
 print("Displaying current account information...")
 print(f"Your current available balance is: ${user_one['account_balance']}")
+print(" ")
+print("Your available funds from connected banks are as follows:")
+for funds in user_one['connected_banks']:
+    print(f"{funds[0]}: ${funds[1]}")
+print(" ")
+
+# Beginning transaction
+
+transfer_funds = input(f"Are you sure that you want to transfer money to {user_two['full_name']}? (y/n): ").lower()
+if transfer_funds == 'n':
+    print("Transaction cancelled.  Have a nice day!")
+else:
+    k = False
+    transfer_amount = int(input(f"How much money would you like to transfer to {user_two['full_name']}? (Whole dollars only): "))
+    while k == False:
+        if transfer_amount > user_one['account_balance']:
+            print(f"Insufficient Funds.  Your transfer must be less than or equal to {user_one['account_balance']}.  Please enter a smaller amount to transfer.")
+            transfer_amount = int(input(f"How much money would you like to transfer to {user_two['account_balance']}? (Whole dollars only): "))
+        else: 
+            k = True
+
+    print(f"Initiating transfer of {transfer_amount} to {user_two['full_name']}.")
+    print(" ")
+    user_one['account_balance']-=transfer_amount
+    user_two['account_balance']+=transfer_amount
+    print(user_one['account_balance'])
+    print(user_two['account_balance'])
+    
+    # print(f"Transaction successful, you now have ${user_one['account_balance']} remaining in your account.")
+       
+
