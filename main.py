@@ -24,16 +24,6 @@ user_two = {
     ]
 }
 
-# Setting Payor/Recipient
-
-payor = input(f"Who would like to do the transfer today, a: {user_one['full_name']}, or b: {user_two['full_name']}? a/b: ").lower()
-if payor == 'a':
-    payor = user_one
-    recipient = user_two
-else:
-    payor = user_two
-    recipient = user_one
-
 # Username validation Function
 
 def user_name_check (payor):
@@ -78,8 +68,8 @@ def get_transfer_amount (recipient):
     money_to_transfer = int(input(f"\nHow much money would you like to transfer to {recipient['full_name']}? (Whole dollars only): "))
     return money_to_transfer
 
-def check_fund_availability (money_to_transfer, payor, recipient):
-    if money_to_transfer > payor['account_balance']:
+def check_fund_availability (money_to_transfer, payor):
+    if money_to_transfer > payor ['account_balance'] or payor ['account_balance'] <= 0:
         return False
     else: 
         return True
@@ -99,50 +89,32 @@ def additional_transfer_check (recipient):
 def end_message (payor):
     print (f"End of transaction.  You now have ${payor['account_balance']} remaining in your account.  Have a GREAT day!")
 
+# Setting Payor/Recipient
+
+payor = input(f"Who would like to do the transfer today, a: {user_one['full_name']}, or b: {user_two['full_name']}? a/b: ").lower()
+if payor == 'a':
+    payor = user_one
+    recipient = user_two
+else:
+    payor = user_two
+    recipient = user_one
+
 user_name_check (payor)
 password_check (payor)
 display_account_info (payor)
 
 performing_transactions = confirming_transaction (recipient)
-while performing_transactions == True:
+while performing_transactions == True and payor['account_balance'] <= 0:
         money_to_transfer = get_transfer_amount (recipient)
-        funds_available = check_fund_availability (money_to_transfer, payor, recipient)
+        funds_available = check_fund_availability (money_to_transfer, payor)
         if funds_available == True:
             perform_transfer (money_to_transfer,payor, recipient)    
             performing_transactions = additional_transfer_check (recipient)
+        elif payor['account_balance'] <= 0:
+            print ("I'm sorry, you have no more money left in your account.")
+            performing_transactions = False
+            break
         else:
             print (f"Insufficient Funds.  You must enter amount less than or equal to {payor['account_balance']}.  ")
 else:
     end_message (payor)
-
-
-# Transaction Function
-
-# def transaction (payor,recipient):
-#     transfer_funds = input(f"Are you sure that you want to transfer money to {recipient['full_name']}? (y/n): ").lower()
-#     if transfer_funds == 'n':
-#         print("Transaction cancelled.  Have a nice day!")
-#     else:
-#         funds_available = False
-#         transfer_amount = int(input(f"\nHow much money would you like to transfer to {recipient['full_name']}? (Whole dollars only): "))
-#         while funds_available == False:
-#             if transfer_amount > payor['account_balance']:
-#                 print(f"Insufficient Funds.  Your transfer must be less than or equal to {payor['account_balance']}.  Please enter a smaller amount to transfer.")
-#                 transfer_amount = int(input(f"How much money would you like to transfer to {recipient['account_balance']}? (Whole dollars only): "))
-#             else: 
-#                 funds_available = True
-
-#             print(f"\nInitiating transfer of {transfer_amount} to \"{recipient['full_name']}\".\n")
-#             payor['account_balance']-=transfer_amount
-#             recipient['account_balance']+=transfer_amount
-#             print(f"Transaction successful!  You now have ${payor['account_balance']} remaining.")
-        
-#             additional_transaction=input("Would you like to make an additional transfer? (y/n): ").lower()
-#             if additional_transaction == 'n':
-#                 print(f"\nYou now have {payor['account_balance']} left in your account.  Have a GREAT day!")
-
-# Checking available balance function
-# def balance_check (payor, transfer_amount)
-# while
-# Calling Functions
-# transaction (payor,recipient)
