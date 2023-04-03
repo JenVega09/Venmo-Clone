@@ -1,9 +1,11 @@
+# Venmo Clone Project with Bonus Stories # 1 & 4
+
 # Creating dictionaries
 
 user_one = {
     'full_name':'Joaquin Humm',
-    'user_name':'q',
-    'password':'q',
+    'user_name':'qhumm',
+    'password':'Qcumber',
     'account_balance': 5000,
     'connected_banks':[
         ('USAA', 2500),
@@ -14,8 +16,8 @@ user_one = {
 
 user_two = {
     'full_name':'Orlando Humm',
-    'user_name':'o',
-    'password':'o',
+    'user_name':'ohumm',
+    'password':'Juice',
     'account_balance': 5000,
     'connected_banks':[
         ('USAA', 2500),
@@ -77,10 +79,10 @@ def check_fund_availability (money_to_transfer, payor):
 def perform_transfer (money_to_transfer, payor, recipient):
     payor['account_balance'] -= money_to_transfer
     recipient['account_balance'] += money_to_transfer
-    print (f"\n Transaction successful!!  You now have {payor['account_balance']} left in your account")
+    print (f"\nTransaction successful!!  You now have {payor['account_balance']} left in your account")
 
 def additional_transfer_check (recipient):
-    user_input = input(f"\n Would you like to make another transfer to {recipient['full_name']}? y/n: ").lower()
+    user_input = input(f"\nWould you like to make another transfer to {recipient['full_name']}? y/n: ").lower()
     if user_input == 'y':
         return True
     else:
@@ -104,7 +106,7 @@ password_check (payor)
 display_account_info (payor)
 
 performing_transactions = confirming_transaction (recipient)
-while performing_transactions == True and payor['account_balance'] <= 0:
+while performing_transactions == True: 
         money_to_transfer = get_transfer_amount (recipient)
         funds_available = check_fund_availability (money_to_transfer, payor)
         if funds_available == True:
